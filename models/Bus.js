@@ -11,8 +11,7 @@ const BusSchema = new mongoose.Schema({
   phone: { type: String, required: false }, // Optional phone number
 });
 
-// Add an index to the 'stops.name' field
-BusSchema.index({ 'stops.name': 1 });
+
 
 module.exports = mongoose.model('Bus', BusSchema);
 

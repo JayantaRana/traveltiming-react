@@ -6,7 +6,7 @@ const cors = require('cors');
 const busRoutes = require('./routes/busRoutes'); // Import the routes
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 const MONGODB_URI = process.env.MONGODB_URI ;
 
 // Middleware
@@ -15,7 +15,7 @@ app.use(express.json());
 
 // MongoDB Connection
 mongoose
-  .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true})
+  .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true,serverSelectionTimeoutMS: 80000  })
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('MongoDB connection error:', err));
 

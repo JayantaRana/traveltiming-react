@@ -39,8 +39,7 @@
 
 import express from 'express';
 import dotenv from 'dotenv';
-import connectDB from './db.js'; 
-import Bus from './models/Bus.js';
+import connectDB from './db.js';
 
 dotenv.config();
 const app = express();
@@ -49,18 +48,28 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 
-// Connect to MongoDB before every request
+// Test MongoDB connection before every request
 app.use(async (req, res, next) => {
   try {
     await connectDB();
     next();
   } catch (error) {
     console.error('Database connection error:', error.message);
+    res.status(500).json({ message: 'Database connection failed' });
+  }
+});
+
+// Root route
+app.get('/', (req, res) => {
+  try {
+    res.send('Bus Timetable Server is running');
+  } catch (error) {
+    console.error('Error in root route:', error.message);
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
-// Search route
+// Other routes
 app.get('/buses/search', async (req, res) => {
   try {
     const { source, destination } = req.query;
@@ -79,18 +88,12 @@ app.get('/buses/search', async (req, res) => {
 
     res.json(filteredBuses);
   } catch (error) {
-    console.error('Error in /buses/search:', error.message);
+    console.error('Error in /buses/search route:', error.message);
     res.status(500).json({ message: 'Error fetching buses' });
   }
-});
-
-// Root route
-app.get('/', (req, res) => {
-  res.send('Bus Timetable Server is running');
 });
 
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-

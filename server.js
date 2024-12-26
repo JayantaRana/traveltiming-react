@@ -39,37 +39,37 @@
 
 import express from 'express';
 import dotenv from 'dotenv';
-import connectDB from './db.js'; // Import the new connection file
+import connectDB from './db.js'; 
 import Bus from './models/Bus.js';
 
 dotenv.config();
 const app = express();
-
 const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
 
-// Connect to MongoDB at the start of each request
+// Connect to MongoDB before every request
 app.use(async (req, res, next) => {
-  await connectDB();
-  next();
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error('Database connection error:', error.message);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 });
 
 // Search route
 app.get('/buses/search', async (req, res) => {
   try {
     const { source, destination } = req.query;
-
-    console.log('Query received:', { source, destination });
+    console.log('Received query:', { source, destination });
 
     const buses = await Bus.find({
-      stops: {
-        $elemMatch: { name: source },
-      },
+      stops: { $elemMatch: { name: source } },
     });
 
-    // Filter buses where the destination exists after the source
     const filteredBuses = buses.filter((bus) => {
       const stopNames = bus.stops.map((stop) => stop.name);
       const sourceIndex = stopNames.indexOf(source);
@@ -77,12 +77,10 @@ app.get('/buses/search', async (req, res) => {
       return sourceIndex !== -1 && destinationIndex !== -1 && sourceIndex < destinationIndex;
     });
 
-    console.log('Filtered Buses:', filteredBuses);
-
     res.json(filteredBuses);
   } catch (error) {
-    console.error('Error fetching buses:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    console.error('Error in /buses/search:', error.message);
+    res.status(500).json({ message: 'Error fetching buses' });
   }
 });
 
@@ -93,6 +91,6 @@ app.get('/', (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
 

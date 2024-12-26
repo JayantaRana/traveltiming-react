@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const connectDB = async () => {
   if (mongoose.connection.readyState >= 1) {
-    console.log('Reusing existing MongoDB connection');
+    console.log('MongoDB already connected');
     return;
   }
 
@@ -12,12 +12,13 @@ const connectDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log('MongoDB connected');
+    console.log('MongoDB connected successfully');
   } catch (error) {
-    console.error('MongoDB connection error:', error.message);
+    console.error('MongoDB connection failed:', error.message);
     throw new Error('Failed to connect to MongoDB');
   }
 };
 
 export default connectDB;
+
 

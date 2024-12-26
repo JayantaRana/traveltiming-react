@@ -7,15 +7,17 @@ const connectDB = async () => {
   }
 
   try {
+    console.log('Connecting to MongoDB...');
     await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log('Connected to MongoDB');
+    console.log('MongoDB connected');
   } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
-    throw new Error('MongoDB connection failed');
+    console.error('MongoDB connection error:', error.message);
+    throw new Error('Failed to connect to MongoDB');
   }
 };
 
 export default connectDB;
+

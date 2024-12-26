@@ -6,7 +6,7 @@ const cors = require('cors');
 const busRoutes = require('./routes/busRoutes'); // Import the routes
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI ;
 
 // Middleware

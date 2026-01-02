@@ -37,12 +37,12 @@ app.get('/', (req, res) => {
 
 
   // Server start (NO mongoose.connect here)
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-}); //new add for popup📌
+// const PORT = process.env.PORT || 5000;
+// app.listen(PORT, () => {
+//   console.log(`🚀 Server running on port ${PORT}`);
+// }); //new add for popup📌
 
-
+module.exports = app; // 👈 IMPORTANT FOR VERCEL
 
 
 
@@ -107,6 +107,7 @@ app.listen(PORT, () => {
 // app.listen(PORT, () => {
 //   console.log(`Server running on port ${PORT}`);
 // });
+
 
 
 

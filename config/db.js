@@ -1,35 +1,43 @@
 const mongoose = require("mongoose");
 
-const busDB = mongoose.createConnection(
-  process.env.MONGO_BUS_URI,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+let busDB;
+let popupDB;
 
-const popupDB = mongoose.createConnection(
-  process.env.MONGO_POPUP_URI,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+if (!global._mongoConnections) {
+  global._mongoConnections = {};
+}
 
-busDB.on("connected", () =>
+if (!global._mongoConnections.busDB) {
+  global._mongoConnections.busDB = mongoose.createConnection(
+    process.env.MONGO_URI,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 80000,
+    }
+  );
+}
+
+if (!global._mongoConnections.popupDB) {
+  global._mongoConnections.popupDB = mongoose.createConnection(
+    process.env.MONGO_POPUP_URI,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 80000,
+    }
+  );
+}
+
+busDB = global._mongoConnections.busDB;
+popupDB = global._mongoConnections.popupDB;
+
+busDB.once("connected", () =>
   console.log("✅ Bus DB connected")
 );
 
-popupDB.on("connected", () =>
+popupDB.once("connected", () =>
   console.log("✅ Popup DB connected")
-);
-
-busDB.on("error", err =>
-  console.error("❌ Bus DB error:", err)
-);
-
-popupDB.on("error", err =>
-  console.error("❌ Popup DB error:", err)
 );
 
 module.exports = { busDB, popupDB };

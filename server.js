@@ -8,8 +8,8 @@ const popupRoutes = require('./routes/popupRoutes');//new add for popup📌
 require('./config/db');//new add for popup📌
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI ;
+// const PORT = process.env.PORT || 3000; //comment for popup📌
+// const MONGODB_URI = process.env.MONGODB_URI ; //comment for popup📌
 
 // Middleware
 app.use(cors());
@@ -25,15 +25,15 @@ app.use(express.json());
 app.use('/buses', busRoutes); // All routes related to buses
 app.use('/api/popups', popupRoutes);//new add for popup📌
 
-// Root Route for Health Check
-app.get('/', (req, res) => {
-  res.send('Bus Timetable Server is running');
-});
+// Root Route for Health Check r comment for popup📌
+// app.get('/', (req, res) => {
+//   res.send('Bus Timetable Server is running');
+// });
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+// Start Server comment for popup📌
+// app.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
+// });
 
 
   // Server start (NO mongoose.connect here)
@@ -107,4 +107,5 @@ app.listen(PORT, () => {
 // app.listen(PORT, () => {
 //   console.log(`Server running on port ${PORT}`);
 // });
+
 

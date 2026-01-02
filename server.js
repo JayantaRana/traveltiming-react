@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const busRoutes = require('./routes/busRoutes'); // Import the routes
+
 // const popupRoutes = require('./routes/popupRoutes');//new add for popup📌
 // require('./config/db');//new add for popup📌
 
@@ -30,7 +31,7 @@ app.get('/', (req, res) => {
   res.send('Bus Timetable Server is running');
 });
 
-Start Server comment for popup📌
+// Start Server comment for popup📌
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
@@ -107,6 +108,7 @@ app.listen(PORT, () => {
 // app.listen(PORT, () => {
 //   console.log(`Server running on port ${PORT}`);
 // });
+
 
 
 

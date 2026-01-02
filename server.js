@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const busRoutes = require('./routes/busRoutes'); // Import the routes
+const popupRoutes = require('./routes/popupRoutes');//new add for popup📌
+require('./config/db');//new add for popup📌
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,14 +15,15 @@ const MONGODB_URI = process.env.MONGODB_URI ;
 app.use(cors());
 app.use(express.json());
 
-// MongoDB Connection
-mongoose
-  .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true,serverSelectionTimeoutMS: 80000  })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.error('MongoDB connection error:', err));
+// MongoDB Connection  //comment for popup📌
+// mongoose
+//   .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true,serverSelectionTimeoutMS: 80000  })
+//   .then(() => console.log('Connected to MongoDB'))
+//   .catch((err) => console.error('MongoDB connection error:', err));
 
 // Routes
 app.use('/buses', busRoutes); // All routes related to buses
+app.use('/api/popups', popupRoutes);//new add for popup📌
 
 // Root Route for Health Check
 app.get('/', (req, res) => {
@@ -31,6 +34,13 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+
+  // Server start (NO mongoose.connect here)
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+}); //new add for popup📌
 
 
 
@@ -97,3 +107,4 @@ app.listen(PORT, () => {
 // app.listen(PORT, () => {
 //   console.log(`Server running on port ${PORT}`);
 // });
+

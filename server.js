@@ -42,7 +42,7 @@ app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 }); //new add for popup📌
 
-module.exports = app; // 👈 IMPORTANT FOR VERCEL
+
 
 
 
@@ -107,6 +107,7 @@ module.exports = app; // 👈 IMPORTANT FOR VERCEL
 // app.listen(PORT, () => {
 //   console.log(`Server running on port ${PORT}`);
 // });
+
 
 
 

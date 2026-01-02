@@ -10,7 +10,7 @@ const busRoutes = require('./routes/busRoutes'); // Import the routes
 
 const app = express();
 const PORT = process.env.PORT || 3000; //comment for popup📌
-// const MONGODB_URI = process.env.MONGODB_URI ; //comment for popup📌
+const MONGODB_URI = process.env.MONGODB_URI ; //comment for popup📌
 
 // Middleware
 app.use(cors());
@@ -108,6 +108,7 @@ app.listen(PORT, () => {
 // app.listen(PORT, () => {
 //   console.log(`Server running on port ${PORT}`);
 // });
+
 
 
 

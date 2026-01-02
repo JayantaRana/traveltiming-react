@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-// const { busDB } = require("../config/db");//new add for popup
+const { busDB } = require("../config/db");//new add for popup
 
 const BusSchema = new mongoose.Schema({
   busname: { type: String, required: true },
@@ -16,9 +16,10 @@ const BusSchema = new mongoose.Schema({
 
 
 
-module.exports = mongoose.model('Bus', BusSchema);
+// module.exports = mongoose.model('Bus', BusSchema);
 
-// module.exports = busDB.model("Bus", BusSchema);//new add for popup
+module.exports = busDB.model("Bus", BusSchema);//new add for popup
+
 
 
 

@@ -26,9 +26,9 @@ app.use('/buses', busRoutes); // All routes related to buses
 app.use('/api/popups', popupRoutes);//new add for popup📌
 
 // Root Route for Health Check r comment for popup📌
-app.get('/', (req, res) => {
-  res.send('Bus Timetable Server is running');
-});
+// app.get('/', (req, res) => {
+//   res.send('Bus Timetable Server is running');
+// });
 
 // Start Server comment for popup📌
 // app.listen(PORT, () => {
@@ -37,12 +37,12 @@ app.get('/', (req, res) => {
 
 
   // Server start (NO mongoose.connect here)
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 }); //new add for popup📌
 
-// module.exports = app; // 👈 IMPORTANT FOR VERCEL
+module.exports = app; // 👈 IMPORTANT FOR VERCEL
 
 
 
@@ -107,6 +107,7 @@ app.listen(PORT, () => {
 // app.listen(PORT, () => {
 //   console.log(`Server running on port ${PORT}`);
 // });
+
 
 
 

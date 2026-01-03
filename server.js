@@ -7,7 +7,7 @@ const cors = require('cors');
 
 const busRoutes = require('./routes/busRoutes'); // Import the routes
 
-// const popupRoutes = require('./routes/popupRoutes');//new add for popup📌
+const popupRoutes = require('./routes/popupRoutes');//new add for popup📌
 
 
 const app = express();
@@ -110,6 +110,7 @@ app.listen(PORT, () => {
 // app.listen(PORT, () => {
 //   console.log(`Server running on port ${PORT}`);
 // });
+
 
 
 

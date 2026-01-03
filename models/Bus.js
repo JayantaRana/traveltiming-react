@@ -16,9 +16,10 @@ const BusSchema = new mongoose.Schema({
 
 
 
-module.exports = mongoose.model('Bus', BusSchema);
+// module.exports = mongoose.model('Bus', BusSchema);
 
-// module.exports = busDB.model('Bus', BusSchema);//new add for popup
+module.exports = busDB.model('Bus', BusSchema);//new add for popup
+
 
 
 

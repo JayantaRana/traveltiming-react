@@ -41,15 +41,17 @@
 // module.exports = router;
 
 
-router.get("/health", (req, res) => {
-  res.json({ status: "bus route active" });
-});
 
 
 //update for shorted time 
 const express = require('express');
 const router = express.Router();
 const Bus = require('../models/Bus');
+
+
+router.get("/health", (req, res) => {
+  res.json({ status: "bus route active" });
+});
 
 // Convert time to 24-hour format for sorting
 function convertTo24Hour(time) {
@@ -112,5 +114,6 @@ router.get('/search', async (req, res) => {
 });
 
 module.exports = router;
+
 
 

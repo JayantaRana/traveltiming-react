@@ -1,5 +1,5 @@
 require('dotenv').config();
-// require('./config/db');//new add for popup📌
+require('./config/db');//new add for popup📌
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -12,21 +12,21 @@ const busRoutes = require('./routes/busRoutes'); // Import the routes
 
 const app = express();
 const PORT = process.env.PORT || 3000; //comment for popup📌
-const MONGODB_URI = process.env.MONGODB_URI ; //comment for popup📌
+// const MONGODB_URI = process.env.MONGODB_URI ; //comment for popup📌
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection  //comment for popup📌
-mongoose
-  .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true,serverSelectionTimeoutMS: 80000  })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.error('MongoDB connection error:', err));
+// mongoose
+//   .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true,serverSelectionTimeoutMS: 80000  })
+//   .then(() => console.log('Connected to MongoDB'))
+//   .catch((err) => console.error('MongoDB connection error:', err));
 
 // Routes
 app.use('/buses', busRoutes); // All routes related to buses
-// app.use('/api/popups', popupRoutes);//new add for popup📌
+app.use('/api/popups', popupRoutes);//new add for popup📌
 
 // Root Route for Health Check r comment for popup📌
 app.get('/', (req, res) => {
@@ -110,6 +110,7 @@ app.listen(PORT, () => {
 // app.listen(PORT, () => {
 //   console.log(`Server running on port ${PORT}`);
 // });
+
 
 
 

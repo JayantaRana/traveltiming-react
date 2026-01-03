@@ -41,6 +41,11 @@
 // module.exports = router;
 
 
+router.get("/health", (req, res) => {
+  res.json({ status: "bus route active" });
+});
+
+
 //update for shorted time 
 const express = require('express');
 const router = express.Router();
@@ -107,4 +112,5 @@ router.get('/search', async (req, res) => {
 });
 
 module.exports = router;
+
 

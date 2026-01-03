@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 // BUS DATABASE
 const busDB = mongoose.createConnection(
-  process.env.MONGO_URI,
+  process.env.MONGODB_URI,
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
@@ -19,3 +19,4 @@ busDB.on("error", err => console.error("Bus DB error:", err));
 popupDB.on("error", err => console.error("Popup DB error:", err));
 
 module.exports = { busDB, popupDB };
+

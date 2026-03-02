@@ -111,7 +111,28 @@ router.get('/search', async (req, res) => {
   }
 });
 
+
+// 🔎 Search buses by bus name (for Search Screen)
+router.get('/search-by-name', async (req, res) => {
+  const { name } = req.query;
+
+  try {
+    if (!name) {
+      return res.json([]);
+    }
+
+    const buses = await Bus.find({
+      name: { $regex: name, $options: 'i' } // 🔥 case-insensitive
+    });
+
+    res.json(buses);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
+
 
 
 

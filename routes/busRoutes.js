@@ -129,7 +129,25 @@ router.get('/search-by-name', async (req, res) => {
   }
 });
 
+
+router.get('/search-by-stop', async (req, res) => {
+  const { stop } = req.query;
+
+  try {
+    if (!stop) return res.json([]);
+
+    const buses = await Bus.find({
+      "stops.name": { $regex: stop, $options: "i" }
+    });
+
+    res.json(buses);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
+
 
 
 

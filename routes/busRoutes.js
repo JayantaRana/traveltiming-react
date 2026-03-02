@@ -117,12 +117,10 @@ router.get('/search-by-name', async (req, res) => {
   const { name } = req.query;
 
   try {
-    if (!name) {
-      return res.json([]);
-    }
+    if (!name) return res.json([]);
 
     const buses = await Bus.find({
-      name: { $regex: name, $options: 'i' } // 🔥 case-insensitive
+      busname: { $regex: name, $options: 'i' }  // ✅ FIXED
     });
 
     res.json(buses);
@@ -132,6 +130,7 @@ router.get('/search-by-name', async (req, res) => {
 });
 
 module.exports = router;
+
 
 
 

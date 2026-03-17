@@ -179,6 +179,32 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// Add new bus
+router.post("/", async (req, res) => {
+  try {
+
+    const { busname, cN, pT, nT, stops } = req.body;
+
+    const newBus = new Bus({
+      busname,
+      cN,
+      pT,
+      nT,
+      stops
+    });
+
+    await newBus.save();
+
+    res.status(201).json(newBus);
+
+  } catch (err) {
+
+    res.status(500).json({ error: err.message });
+
+  }
+});
+
+
 module.exports = router;
 
 

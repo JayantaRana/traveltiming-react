@@ -47,7 +47,7 @@
 const express = require('express');
 const router = express.Router();
 const Bus = require('../models/Bus');
-
+const auth = require("../middleware/auth");
 
 
 
@@ -163,7 +163,7 @@ router.get("/:id",  async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id",auth, async (req, res) => {
   try {
 
     const updatedBus = await Bus.findByIdAndUpdate(
@@ -180,7 +180,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // Add new bus
-router.post("/",  async (req, res) => {
+router.post("/",auth,  async (req, res) => {
   try {
 
     const { busname, cN, pT, nT, stops } = req.body;

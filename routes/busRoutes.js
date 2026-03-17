@@ -147,7 +147,7 @@ router.get('/search-by-stop', async (req, res) => {
 });
 
 //add for dashboard
-app.get("/api/buses/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
 
     const bus = await Bus.findById(req.params.id);
@@ -163,7 +163,7 @@ app.get("/api/buses/:id", async (req, res) => {
   }
 });
 
-app.put("/api/buses/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
 
     const updatedBus = await Bus.findByIdAndUpdate(

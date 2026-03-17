@@ -146,6 +146,39 @@ router.get('/search-by-stop', async (req, res) => {
   }
 });
 
+//add for dashboard
+app.get("/api/buses/:id", async (req, res) => {
+  try {
+
+    const bus = await Bus.findById(req.params.id);
+
+    if (!bus) {
+      return res.status(404).json({ message: "Bus not found" });
+    }
+
+    res.json(bus);
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.put("/api/buses/:id", async (req, res) => {
+  try {
+
+    const updatedBus = await Bus.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+
+    res.json(updatedBus);
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;
 
 

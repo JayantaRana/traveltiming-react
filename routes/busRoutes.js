@@ -150,26 +150,26 @@ router.get('/search-by-stop', async (req, res) => {
 
 
 //add for bus count admin
-router.get("/my-bus-count",auth, async (req,res)=>{
+// router.get("/my-bus-count",auth, async (req,res)=>{
 
-  try{
+//   try{
 
-    const admin = req.user.username;
+//     const admin = req.user.username;
 
-    const count = await AdminLog.countDocuments({
-      admin:admin,
-      action:"add_bus"
-    });
+//     const count = await AdminLog.countDocuments({
+//       admin:admin,
+//       action:"add_bus"
+//     });
 
-    res.json({count});
+//     res.json({count});
 
-  }catch(err){
+//   }catch(err){
 
-    res.status(500).json({message:"error"});
+//     res.status(500).json({message:"error"});
 
-  }
+//   }
 
-});
+// });
 
 //add for dashboard
 router.get("/:id",  async (req, res) => {
@@ -220,11 +220,11 @@ router.post("/",auth,  async (req, res) => {
 
     await newBus.save();
       
-      await AdminLog.create({
-  admin: req.user.username,
-  action: "add_bus",
-  busname: req.body.busname
-});
+//       await AdminLog.create({
+//   admin: req.user.username,
+//   action: "add_bus",
+//   busname: req.body.busname
+// });
 
     res.status(201).json(newBus);
 

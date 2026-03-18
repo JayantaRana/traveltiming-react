@@ -146,6 +146,31 @@ router.get('/search-by-stop', async (req, res) => {
   }
 });
 
+
+
+
+//add for bus count admin
+router.get("/my-bus-count",auth, async (req,res)=>{
+
+  try{
+
+    const admin = req.user.username;
+
+    const count = await AdminLog.countDocuments({
+      admin:admin,
+      action:"add_bus"
+    });
+
+    res.json({count});
+
+  }catch(err){
+
+    res.status(500).json({message:"error"});
+
+  }
+
+});
+
 //add for dashboard
 router.get("/:id",  async (req, res) => {
   try {
@@ -209,27 +234,7 @@ router.post("/",auth,  async (req, res) => {
 
   }
 });
-//add for bus count admin
-router.get("/my-bus-count",auth, async (req,res)=>{
 
-  try{
-
-    const admin = req.user.username;
-
-    const count = await AdminLog.countDocuments({
-      admin:admin,
-      action:"add_bus"
-    });
-
-    res.json({count});
-
-  }catch(err){
-
-    res.status(500).json({message:"error"});
-
-  }
-
-});
 
 module.exports = router;
 

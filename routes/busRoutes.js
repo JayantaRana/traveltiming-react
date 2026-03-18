@@ -229,6 +229,7 @@ router.post("/",auth,  async (req, res) => {
     res.status(201).json(newBus);
 
   } catch (err) {
+      console.log("ADD BUS ERROR:", err);
 
     res.status(500).json({ error: err.message });
 

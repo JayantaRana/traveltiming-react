@@ -241,26 +241,22 @@ router.post("/", auth, async (req, res) => {
 
     let { busname, cN, pT, nT, stops } = req.body;
 
-    // remove empty phone
-    if (!cN) delete req.body.cN;
-
-    // remove empty text fields
-    if (!pT) delete req.body.pT;
-    if (!nT) delete req.body.nT;
-
     // clean stops
     stops = stops.map(stop => ({
       name: stop.name,
-      ...(stop.dt && { dt: stop.dt }) // only add dt if exists
+      ...(stop.dt && { dt: stop.dt })
     }));
 
-    const newBus = new Bus({
+    const busData = {
       busname,
-      cN,
-      pT,
-      nT,
       stops
-    });
+    };
+
+    if (cN) busData.cN = cN;
+    if (pT) busData.pT = pT;
+    if (nT) busData.nT = nT;
+
+    const newBus = new Bus(busData);
 
     await newBus.save();
 

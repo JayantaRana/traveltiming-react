@@ -13,7 +13,7 @@ const BusSchema = new mongoose.Schema({
   cN: { type: String, required: false }, // Optional phone number
   nT:{type:String, required: false},
   pT:{type:String, required: false},
-});
+},  { versionKey: false }  );
 
 
 

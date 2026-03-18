@@ -206,10 +206,53 @@ router.put("/:id",auth, async (req, res) => {
 });
 
 // Add new bus
-router.post("/",auth,  async (req, res) => {
+// router.post("/",auth,  async (req, res) => {
+//   try {
+
+//     const { busname, cN, pT, nT, stops } = req.body;
+
+//     const newBus = new Bus({
+//       busname,
+//       cN,
+//       pT,
+//       nT,
+//       stops
+//     });
+
+//     await newBus.save();
+      
+
+
+   
+
+
+//     res.status(201).json(newBus);
+
+//   } catch (err) {
+//       console.log("ADD BUS ERROR:", err);
+
+//     res.status(500).json({ error: err.message });
+
+//   }
+// });
+
+router.post("/", auth, async (req, res) => {
   try {
 
-    const { busname, cN, pT, nT, stops } = req.body;
+    let { busname, cN, pT, nT, stops } = req.body;
+
+    // remove empty phone
+    if (!cN) delete req.body.cN;
+
+    // remove empty text fields
+    if (!pT) delete req.body.pT;
+    if (!nT) delete req.body.nT;
+
+    // clean stops
+    stops = stops.map(stop => ({
+      name: stop.name,
+      ...(stop.dt && { dt: stop.dt }) // only add dt if exists
+    }));
 
     const newBus = new Bus({
       busname,
@@ -220,22 +263,16 @@ router.post("/",auth,  async (req, res) => {
     });
 
     await newBus.save();
-      
-
-
-   
-
 
     res.status(201).json(newBus);
 
   } catch (err) {
-      console.log("ADD BUS ERROR:", err);
 
+    console.log(err);
     res.status(500).json({ error: err.message });
 
   }
 });
-
 
 module.exports = router;
 

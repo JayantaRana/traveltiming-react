@@ -5,6 +5,7 @@ const BusSchema = new mongoose.Schema({
   busname: { type: String, required: true },
   stops: [
     {
+       _id: false,  
       name: { type: String, required: true }, // Stop name
       dt: { type: String, required: false }, // Optional departure time
     },

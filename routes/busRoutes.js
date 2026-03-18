@@ -210,7 +210,7 @@ router.post("/",auth,  async (req, res) => {
   }
 });
 //add for bus count admin
-router.get("/my-bus-count", async (req,res)=>{
+router.get("/my-bus-count",auth, async (req,res)=>{
 
   try{
 

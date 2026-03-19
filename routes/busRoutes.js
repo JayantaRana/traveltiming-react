@@ -175,10 +175,10 @@ router.get("/admin-bus-count", auth, async (req,res)=>{
 
   try{
 
-    console.log("Admin ID:", req.user.id);
+    // console.log("Admin ID:", req.user.id);
 
     const count = await AdminLog.countDocuments({
-      admin: req.user.id,
+      admin: req.user.username,
       action: "ADD_BUS"
     });
 

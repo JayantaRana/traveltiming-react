@@ -171,20 +171,25 @@ router.get('/search-by-stop', async (req, res) => {
 
 // });
 
-router.get("/admin-bus-count", auth, async (req,res)=>{
+router.get("/admin-bus-count", auth, async (req, res) => {
 
-  try{
+  try {
+
+    console.log("Admin ID from token:", req.user.id);
 
     const count = await AdminLog.countDocuments({
-      admin:req.user.id,
-      action:"ADD_BUS"
+      admin: req.user.id,
+      action: "ADD_BUS"
     });
 
-    res.json({count});
+    console.log("Bus count:", count);
 
-  }catch(err){
+    res.json({ count });
 
-    res.status(500).json({error:err.message});
+  } catch (err) {
+
+    console.log("ADMIN COUNT ERROR:", err);
+    res.status(500).json({ error: err.message });
 
   }
 

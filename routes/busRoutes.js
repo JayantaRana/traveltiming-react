@@ -48,7 +48,7 @@ const express = require('express');
 const router = express.Router();
 const Bus = require('../models/Bus');
 const auth = require("../middleware/auth");
-const AdminLog = require("../models/AdminLog");
+
 
 
 // Convert time to 24-hour format for sorting
@@ -281,13 +281,7 @@ router.post("/", auth, async (req, res) => {
 
 
 
-       // SAVE ADMIN LOG
-    await AdminLog.create({
-      admin: req.user.username, // username from token
-      action: "ADD_BUS",
-      busname: busname
-    });
-      //end
+
 
     res.status(201).json(newBus);
 

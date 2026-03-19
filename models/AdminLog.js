@@ -1,24 +1,19 @@
 const mongoose = require("mongoose");
+const { busDB } = require("../config/db");   // 👈 important
 
 const AdminLogSchema = new mongoose.Schema({
 
-  admin:{
-    type:String
-  },
+  admin: String,
 
-  action:{
-    type:String
-  },
+  action: String,
 
-  busname:{
-    type:String
-  },
+  busname: String,
 
   time:{
-    type:Date,
-    default:Date.now
+    type: Date,
+    default: Date.now
   }
 
 });
 
-module.exports = mongoose.model("AdminLog", AdminLogSchema);
+module.exports = busDB.model("AdminLog", AdminLogSchema);

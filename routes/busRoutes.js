@@ -48,7 +48,7 @@ const express = require('express');
 const router = express.Router();
 const Bus = require('../models/Bus');
 const auth = require("../middleware/auth");
-
+const AdminLog = require("../models/AdminLog");
 
 
 // Convert time to 24-hour format for sorting
@@ -171,7 +171,24 @@ router.get('/search-by-stop', async (req, res) => {
 
 // });
 
+router.get("/admin-bus-count", auth, async (req,res)=>{
 
+  try{
+
+    const count = await AdminLog.countDocuments({
+      admin:req.user.id,
+      action:"ADD_BUS"
+    });
+
+    res.json({count});
+
+  }catch(err){
+
+    res.status(500).json({error:err.message});
+
+  }
+
+});
 
 //add for dashboard
 router.get("/:id",  async (req, res) => {
@@ -262,8 +279,20 @@ router.post("/", auth, async (req, res) => {
     await newBus.save();
 
 
+//new add for count
+try{
 
+  await AdminLog.create({
+    admin: req.user.id,
+    action: "ADD_BUS",
+    busname: busname
+  });
 
+}catch(err){
+
+  console.log("Admin log error:", err);
+
+} //end
 
     res.status(201).json(newBus);
 

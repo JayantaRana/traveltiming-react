@@ -171,24 +171,6 @@ router.get('/search-by-stop', async (req, res) => {
 
 // });
 
-router.get("/admin-bus-count", auth, async (req,res)=>{
-
-  try{
-
-    const count = await AdminLog.countDocuments({
-      admin:req.user.username,
-      action:"ADD_BUS"
-    });
-
-    res.json({count});
-
-  }catch(err){
-
-    res.status(500).json({error:err.message});
-
-  }
-
-});
 
 
 //add for dashboard

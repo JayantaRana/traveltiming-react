@@ -21,4 +21,4 @@ const AdminLogSchema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model("AdminLog",AdminLogSchema);
+module.exports = mongoose.model("AdminLog", AdminLogSchema);

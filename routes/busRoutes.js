@@ -260,6 +260,16 @@ router.post("/", auth, async (req, res) => {
 
     await newBus.save();
 
+
+
+       // SAVE ADMIN LOG
+    await AdminLog.create({
+      admin: req.user.username, // username from token
+      action: "ADD_BUS",
+      busname: busname
+    });
+      //end
+
     res.status(201).json(newBus);
 
   } catch (err) {

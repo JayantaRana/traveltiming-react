@@ -71,6 +71,7 @@ router.get('/', async (req, res) => {
     const buses = await Bus.find();
     res.json(buses);
   } catch (error) {
+      console.error(error);
     res.status(500).json({ message: error.message });
   }
 });
@@ -107,6 +108,7 @@ router.get('/search', async (req, res) => {
 
     res.json(sortedBuses);
   } catch (error) {
+      console.error(error);
     res.status(500).json({ message: error.message });
   }
 });

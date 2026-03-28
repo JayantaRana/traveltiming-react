@@ -152,49 +152,29 @@ router.get('/search-by-stop', async (req, res) => {
 
 
 //add for bus count admin
-// router.get("/my-bus-count",auth, async (req,res)=>{
+
+// router.get("/admin-bus-count", auth, async (req,res)=>{
 
 //   try{
 
-//     const admin = req.user.username;
+//     // console.log("Admin ID:", req.user.id);
 
 //     const count = await AdminLog.countDocuments({
-//       admin:admin,
-//       action:"add_bus"
+//       admin: req.user.id,
+//       action: "ADD_BUS"
 //     });
 
 //     res.json({count});
 
 //   }catch(err){
 
-//     res.status(500).json({message:"error"});
+//     console.log("ADMIN COUNT ERROR:", err.message);
+
+//     res.status(500).json({error:err.message});
 
 //   }
 
 // });
-
-router.get("/admin-bus-count", auth, async (req,res)=>{
-
-  try{
-
-    // console.log("Admin ID:", req.user.id);
-
-    const count = await AdminLog.countDocuments({
-      admin: req.user.id,
-      action: "ADD_BUS"
-    });
-
-    res.json({count});
-
-  }catch(err){
-
-    console.log("ADMIN COUNT ERROR:", err.message);
-
-    res.status(500).json({error:err.message});
-
-  }
-
-});
 //add for dashboard
 router.get("/:id",  async (req, res) => {
   try {

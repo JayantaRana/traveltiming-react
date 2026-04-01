@@ -8,7 +8,7 @@ const cors = require('cors');
 const busRoutes = require('./routes/busRoutes'); // Import the routes
 
 const popupRoutes = require('./routes/popupRoutes');//new add for popup📌
-
+const feedbackRoutes = require("./routes/feedback");
 
 const app = express();
 const PORT = process.env.PORT || 3000; 
@@ -28,7 +28,7 @@ app.use(express.json());
 // Routes
 app.use('/buses', busRoutes); // All routes related to buses
 app.use('/api/popups', popupRoutes);//new add for popup📌
-
+app.use("/feedback", feedbackRoutes);
 
 
 // Root Route for Health Check 

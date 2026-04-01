@@ -265,19 +265,19 @@ router.post("/", auth, async (req, res) => {
 
 
 //new add for count
-try{
+// try{
 
-  await AdminLog.create({
-    admin: req.user.id,
-    action: "ADD_BUS",
-    busname: busname
-  });
+//   await AdminLog.create({
+//     admin: req.user.id,
+//     action: "ADD_BUS",
+//     busname: busname
+//   });
 
-}catch(err){
+// }catch(err){
 
-  console.log("Admin log error:", err);
+//   console.log("Admin log error:", err);
 
-} //end
+// } //end
 
     res.status(201).json(newBus);
 

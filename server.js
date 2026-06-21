@@ -20,10 +20,49 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection  //comment for popup📌
-mongoose
-  .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true,serverSelectionTimeoutMS: 80000  })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.error('MongoDB connection error:', err));
+
+
+
+// mongoose
+//   .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true,serverSelectionTimeoutMS: 80000  })
+//   .then(() => console.log('Connected to MongoDB'))
+//   .catch((err) => console.error('MongoDB connection error:', err));
+let isConnected = false;
+
+const connectDB = async () => {
+  if (isConnected && mongoose.connection.readyState === 1) {
+    return;
+  }
+  if (!MONGODB_URI) {
+    throw new Error("MONGODB_URI is not defined in environment variables");
+  }
+  console.log("Connecting to MongoDB...");
+  const db = await mongoose.connect(MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 8000, // Fail fast (8s) if connection is blocked
+  });
+  isConnected = db.connections[0].readyState === 1;
+  console.log("✅ Connected to MongoDB");
+};
+
+// Middleware to ensure DB connection is ready before handling requests
+app.use(async (req, res, next) => {
+  if (req.path === '/') {
+    return next();
+  }
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    console.error("Database connection error in middleware:", err.message);
+    res.status(500).json({ error: "Database connection failed: " + err.message });
+  }
+});
+//new add
+
+
+
 
 // Routes
 app.use('/buses', busRoutes); // All routes related to buses
